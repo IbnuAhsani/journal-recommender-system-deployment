@@ -1,7 +1,7 @@
 import pickle
 import sklearn
 import numpy as np
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -10,7 +10,7 @@ model = pickle.load(open('model.pkl', 'rb'))
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+  return render_template("home.html")
 
 
 @app.route("/test")
