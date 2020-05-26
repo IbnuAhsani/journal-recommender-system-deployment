@@ -1,3 +1,5 @@
-scikit-learn
-numpy
 flask-wtf
+nltk
+numpy
+Sastrawi
+scikit-learn
