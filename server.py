@@ -2,7 +2,7 @@ import pickle
 import sklearn
 import numpy as np
 from SubmitForm import SubmitForm
-from text_processing import test_append
+from text_processing import predict
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
@@ -16,9 +16,9 @@ def home():
 
   if form.validate_on_submit():
     abstract = form.abstract.data
-    result = test_append(abstract)
+    prediction = predict(abstract)
 
-    return '<h1> the username is {}.'. format(result)
+    return '<h1> the username is {}.'. format(prediction)
 
   return render_template("home.html", title='Form Submition', form=form)
 
