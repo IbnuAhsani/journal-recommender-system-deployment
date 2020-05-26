@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>Simple Flask Website</title>
-  </head>
-  <body>
-    <h1>Building a Simple Flask Website</h1>
-    <p>Flask is a Fun and easy framework</p>
-    <p>Flask and HTML in python looks cool</p>
-  </body>
+<html>
+   <head>
+      <title>Single Name Input in Flask Form</title>
+   </head>
+   <body>
+      <h1>A Simple Form kindly input your name here </h1>
+      <form method= "POST" action"{{ url_for('home') }}">
+      {{ form.csrf_token }}
+      {{ form.abstract.label }}
+      {{ form.abstract }}
+      <input type="submit" value="Submit">
+      </form>
+   </body>
 </html>
