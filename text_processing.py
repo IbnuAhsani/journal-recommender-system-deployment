@@ -3,8 +3,6 @@ import json
 import math
 import nltk
 import string
-import pickle
-import sklearn
 import numpy as np
 from collections import OrderedDict 
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
@@ -83,10 +81,7 @@ def calculate_tf_idf(tf, idf):
     return tf_idf
 
 
-def predict(abstract):
-    # enable when running test.py 
-    # model = pickle.load(open('./classifiers/model_sastrawi_protocol_3.pkl', 'rb'))
-
+def predict(abstract, model):
     abstract_token_list = preprocess(abstract)
 
     with open('./data/abstract-token-list.json', 'w') as f:
