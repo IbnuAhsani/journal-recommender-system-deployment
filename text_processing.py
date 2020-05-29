@@ -82,6 +82,21 @@ def calculate_tf_idf(tf, idf):
 
 
 def predict(abstract, model):
+    journal_name = {
+        "0": "Jurnal Hortikultura",
+        "1": "Jurnal Penelitian Perikanan Indonesia",
+        "2": "Jurnal Riset Akuakultur",
+        "3": "Jurnal Jalan-Jembatan",
+        "4": "Jurnal Penelitian Hasil Hutan",
+        "5": "Jurnal Penelitian Hutan dan Konservasi Alam",
+        "6": "E-Jurnal Medika Udayana",
+        "7": "Jurnal Simetris",
+        "8": "Jurnal Teknik ITS",
+        "9": "Berita Kedokteran Masyarakat",
+        "10": "Indonesia Medicus Veterinus",
+        "11": "Matriks Teknik Sipil",
+    }
+
     abstract_token_list = preprocess(abstract)
 
     with open('./data/abstract-token-list.json', 'w') as f:
@@ -110,4 +125,6 @@ def predict(abstract, model):
     predict = model.predict(tf_list_np)
     print("predict: ", predict)
 
-    return predict
+    predicted_journal = journal_name[str(predict[0])]
+
+    return predicted_journal
