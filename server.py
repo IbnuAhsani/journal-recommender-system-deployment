@@ -2,7 +2,7 @@ import pickle
 import sklearn
 import numpy as np
 from SubmitForm import SubmitForm
-from text_processing import predict
+from utils import text_processing
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def home():
 
   if form.validate_on_submit():
     abstract = form.abstract.data
-    prediction = predict(abstract, model)
+    prediction = text_processing.predict(abstract, model)
 
     return '<h1> the the class is {}.'. format(prediction)
 
