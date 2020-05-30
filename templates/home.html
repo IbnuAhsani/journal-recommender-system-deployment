@@ -1,14 +1,19 @@
-<html>
-   <head>
-      <title>Single Name Input in Flask Form</title>
-   </head>
-   <body>
-      <h1>A Simple Form kindly input your name here </h1>
-      <form method= "POST" action"{{ url_for('home') }}">
-      {{ form.csrf_token }}
-      {{ form.abstract.label }}
-      {{ form.abstract }}
-      <input type="submit" value="Submit">
-      </form>
-   </body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+    <div class="container">
+        <h3>Journal Recommender System</h3>
+        <hr>
+        <form action="{{ url_for('home') }}" method="POST" class="form" role="form">
+            {{ form.csrf_token() }}
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ wtf.form_field(form.abstract, cols="20", rows="20", 
+                        class='form-control', placeholder='Penelitian tentang pengaruh ...') }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}
