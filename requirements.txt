@@ -1,4 +1,5 @@
 flask-wtf
+flask_bootstrap
 nltk
 numpy
 Sastrawi
