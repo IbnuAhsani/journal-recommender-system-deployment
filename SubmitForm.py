@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired
 
 
 class SubmitForm(FlaskForm):
-  abstract = StringField('Enter Your Abstract', widget=TextArea(), validators=[DataRequired()])
+  abstract = StringField('Ketik Abstrak Jurnal Anda', widget=TextArea(), validators=[DataRequired()])
   submit = SubmitField('submit')
