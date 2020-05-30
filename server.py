@@ -20,8 +20,8 @@ def home():
   if form.validate_on_submit():
     abstract = form.abstract.data
     prediction = text_processing.predict(abstract, model)
-
-    return '<h1> the the class is {}.'. format(prediction)
+    
+    return render_template("home.html", title='Journal Recommender System', form=form, prediction=prediction)
 
   return render_template("home.html", title='Journal Recommender System', form=form)
 
