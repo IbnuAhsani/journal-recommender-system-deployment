@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container">
-        <h2>Sistem Rekomendasi Jurnal</h2>
+        <h3>Sistem Rekomendasi Jurnal</h3>
         <hr>
         <form action="{{ url_for('home') }}" method="POST" class="form" role="form">
             {{ form.csrf_token() }}
@@ -14,7 +14,24 @@
                 </div>
                 {% if prediction is defined %}
                     <div class="col-md-6">
-                        <h3>Jurnal yang direkomendasikan adalah <u>{{ prediction }}</u></h3> 
+                        <div class="row">
+                            <center>
+                                <h4>Jurnal yang direkomendasikan adalah ...</h4> 
+                            </center>
+                        </div>
+                        <div class="row">
+                            <center>
+                                <h5><u>{{ prediction['JOURNAL_NAME'] }}</u></h5>
+                            </center>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <span style="white-space: pre-line">{{ prediction['JOURNAL_DESC'] }}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <img class="img-responsive" src="{{ prediction['JOURNAL_COVER'] }}">
+                            </div>
+                        </div>
                     </div>
                 {% endif %}
             </div>

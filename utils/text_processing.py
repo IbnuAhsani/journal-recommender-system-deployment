@@ -82,27 +82,18 @@ def calculate_tf_idf(tf, idf):
 
 
 def predict(abstract, model):
-    journal_name = {
-        "0": "Jurnal Hortikultura",
-        "1": "Jurnal Penelitian Perikanan Indonesia",
-        "2": "Jurnal Riset Akuakultur",
-        "3": "Jurnal Jalan-Jembatan",
-        "4": "Jurnal Penelitian Hasil Hutan",
-        "5": "Jurnal Penelitian Hutan dan Konservasi Alam",
-        "6": "E-Jurnal Medika Udayana",
-        "7": "Jurnal Simetris",
-        "8": "Jurnal Teknik ITS",
-        "9": "Berita Kedokteran Masyarakat",
-        "10": "Indonesia Medicus Veterinus",
-        "11": "Matriks Teknik Sipil",
-    }
+
+    ABSTRACT_TOKEN_SAVE_DIR = './data/abstract-token-list.json'
+    TF_IDF_SAVE_DIR = './data/tf-idf.csv'
+    FV_TOKENS_OPEN_DIR = './data/fv-tokens.json'
+    JOURNAL_DATA_OPEN_DIR = './static/journal_info/journal-info.json'
 
     abstract_token_list = preprocess(abstract)
 
-    with open('./data/abstract-token-list.json', 'w') as f:
+    with open(ABSTRACT_TOKEN_SAVE_DIR, 'w') as f:
         json.dump(abstract_token_list , f, indent=4)
 
-    with open('./data/fv-tokens.json') as f:
+    with open(FV_TOKENS_OPEN_DIR) as f:
       fv_token_list = json.load(f)
     
     fv_token_dict = OrderedDict({ i : 0 for i in fv_token_list})
@@ -113,7 +104,7 @@ def predict(abstract, model):
     for tf in tfs.values():
       tf_list.append(tf) 
 
-    with open('./data/tf-idf.csv', 'w') as myfile:
+    with open(TF_IDF_SAVE_DIR, 'w') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
         wr.writerow(tf_list)
 
@@ -125,6 +116,9 @@ def predict(abstract, model):
     predict = model.predict(tf_list_np)
     print("predict: ", predict)
 
-    predicted_journal = journal_name[str(predict[0])]
+    with open(JOURNAL_DATA_OPEN_DIR) as f:
+      journal_datas = json.load(f)
 
-    return predicted_journal
+    journal_data = journal_datas[str(predict[0])]
+
+    return journal_data
