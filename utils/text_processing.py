@@ -52,33 +52,18 @@ def calculate_tf(word_dict, token_list):
     return tf_dict
 
 
-def calculate_idf(documents):
-    num_documents = len(documents)
-    idf_dict = dict.fromkeys(documents[0].keys(), 0)
-
-    for document in documents:
-        for word, val in document.items():
-            if val > 0:
-                idf_dict[word] += 1
-    
-    for word, val in idf_dict.items():
-        idf_dict[word] = 1 + math.log(num_documents / float(val + 1))
-    
-    return idf_dict
-
-
-def calculate_tf_idf(tf, idf):
-    tf_idf = {}
+def calculate_tf_idf(tf):
+    tf_idf_dict = {}
 
     for word, val in tf.items():
-        if val not in idf:
-            word_idf = 1
+        if val == 0:
+            tf_idf = val
         else:
-            word_idf = idf[word]
+            tf_idf = val * math.log(1/2)
 
-        tf_idf[word] = val * word_idf
+        tf_idf_dict[word] = tf_idf
             
-    return tf_idf
+    return tf_idf_dict
 
 
 def predict(abstract, model):
@@ -98,22 +83,23 @@ def predict(abstract, model):
     
     fv_token_dict = OrderedDict({ i : 0 for i in fv_token_list})
     tfs = calculate_tf(fv_token_dict, abstract_token_list)
+    tfidfs = calculate_tf_idf(tfs)
 
-    tf_list = []
+    tf_idf_list = []
 
-    for tf in tfs.values():
-      tf_list.append(tf) 
+    for tfidf in tfidfs.values():
+      tf_idf_list.append(tfidf) 
 
     with open(TF_IDF_SAVE_DIR, 'w') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
-        wr.writerow(tf_list)
+        wr.writerow(tf_idf_list)
 
-    tf_list_np = np.array([tf_list])
+    tf_idf_list_np = np.array([tf_idf_list])
 
-    probabilities = model.predict_proba(tf_list_np)
+    probabilities = model.predict_proba(tf_idf_list_np)
     print("probabilities: ", probabilities)
 
-    predict = model.predict(tf_list_np)
+    predict = model.predict(tf_idf_list_np)
     print("predict: ", predict)
 
     with open(JOURNAL_DATA_OPEN_DIR) as f:
