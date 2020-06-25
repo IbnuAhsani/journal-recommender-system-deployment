@@ -59,7 +59,7 @@ def calculate_tf_idf(tf):
         if val == 0:
             tf_idf = val
         else:
-            tf_idf = val * math.log(1/2)
+            tf_idf = val * math.log10(1/2)
 
         tf_idf_dict[word] = tf_idf
             
