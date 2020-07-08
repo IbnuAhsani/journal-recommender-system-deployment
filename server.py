@@ -16,7 +16,7 @@ app.config['STATIC_PIC_DIR'] = STATIC_PIC_DIR
 
 Bootstrap(app)
 
-model = pickle.load(open('./classifiers/model_data_23_corrected.pkl', 'rb'))
+model = pickle.load(open('./classifiers/final_model_data_23_150_feature.pkl', 'rb'))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
