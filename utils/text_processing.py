@@ -116,5 +116,17 @@ def predict(abstract, model):
       journal_datas = json.load(f)
 
     journal_data = journal_datas[str(predict[0])]
+    probabilities_data = []
+    index = 0
 
-    return journal_data
+    for probability in probabilities[0]:
+        temp_dict = {
+            'JOURNAL_ID': index,
+            'JOURNAL_NAME': journal_datas[str(index)]['JOURNAL_NAME'],
+            'JOURNAL_PROBABILITY': round(probability * 100, 2),
+        }
+
+        probabilities_data.append(temp_dict)
+        index += 1
+
+    return journal_data, probabilities_data

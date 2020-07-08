@@ -11,6 +11,7 @@
                 <div class="form-group col-md-6">
                     {{ wtf.form_field(form.abstract, cols="20", rows="20", 
                         class='form-control', placeholder='Penelitian tentang pengaruh ...') }}
+                    <button type="submit" class="btn btn-primary">Cari Jurnal</button>
                 </div>
                 {% if prediction is defined %}
                     <div class="col-md-6">
@@ -35,10 +36,31 @@
                                 <img class="img-responsive" src="{{ prediction['JOURNAL_COVER'] }}">
                             </div>
                         </div>
+                        <br>
+                        <div class="row">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Nama Jurnal</th>
+                                        <th scope="col">Probabilitas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% for data in probabilities %}
+                                            <tr>
+                                                <td>{{ data['JOURNAL_ID'] }}</td>
+                                                <td>{{ data['JOURNAL_NAME'] }}</td>
+                                                <td>{{ data['JOURNAL_PROBABILITY'] }}%</td>
+                                            </tr>
+                                        {% endfor %}
+                                </tbody>
+                            </table> 
+                        </div>
                     </div>
                 {% endif %}
             </div>
-            <button type="submit" class="btn btn-primary">Cari Jurnal</button>
         </form>
     </div>
 {% endblock %}

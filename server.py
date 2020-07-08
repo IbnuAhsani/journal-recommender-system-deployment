@@ -24,12 +24,13 @@ def home():
 
   if form.validate_on_submit():
     abstract = form.abstract.data
-    prediction = text_processing.predict(abstract, model)
+    prediction, probabilities = text_processing.predict(abstract, model)
     journal_cover_name = prediction['JOURNAL_COVER']
     journal_cover_path = os.path.join(app.config['STATIC_PIC_DIR'], journal_cover_name)
     prediction['JOURNAL_COVER'] = journal_cover_path
     
-    return render_template("home.html", title='Journal Recommender System', form=form, prediction=prediction)
+    return render_template("home.html", title='Journal Recommender System', 
+        form=form, prediction=prediction, probabilities=probabilities)
 
   return render_template("home.html", title='Journal Recommender System', form=form)
 
