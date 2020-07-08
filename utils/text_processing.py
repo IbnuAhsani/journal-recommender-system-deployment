@@ -35,11 +35,17 @@ def preprocess(abstract):
     abstract_stemmed = stemmer.stem(abstract_sw_removed)
     abstract_tokens = nltk.word_tokenize(abstract_stemmed)
 
-    final_token = []
+    tokens_digits_removed = []
 
     for token in abstract_tokens:
       token_digits_removed = ''.join([i for i in token if not i.isdigit()])
-      final_token.append(token_digits_removed)
+      tokens_digits_removed.append(token_digits_removed)
+    
+    final_token = []
+
+    for token in tokens_digits_removed:
+        if token not in final_token:
+            final_token.append(token)
 
     return final_token
 
@@ -83,7 +89,7 @@ def predict(abstract, model):
         json.dump(abstract_token_list , f, indent=4)
 
     with open(FV_TOKENS_OPEN_DIR) as f:
-      fv_token_list = json.load(f)
+        fv_token_list = json.load(f)
     
     fv_token_dict = OrderedDict({ i : 0 for i in fv_token_list})
     tfs = calculate_tf(fv_token_dict, abstract_token_list)
