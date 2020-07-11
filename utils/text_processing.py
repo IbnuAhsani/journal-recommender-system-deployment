@@ -78,8 +78,8 @@ def calculate_tf_idf(tf):
 
 def predict(abstract, model):
 
-    ABSTRACT_TOKEN_SAVE_DIR = './data/abstract-token-list.json'
-    TF_IDF_SAVE_DIR = './data/tf-idf.csv'
+    ABSTRACT_TOKEN_SAVE_DIR = './data/output/abstract-token-list.json'
+    TF_IDF_SAVE_DIR = './data/output/tf-idf.csv'
     FV_TOKENS_OPEN_DIR = './data/fv-tokens/final-fv-tokens-data-23-150-feature.json'
     JOURNAL_DATA_OPEN_DIR = './static/journal_info/journal-info.json'
 
