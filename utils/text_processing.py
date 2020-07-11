@@ -80,7 +80,7 @@ def predict(abstract, model):
 
     ABSTRACT_TOKEN_SAVE_DIR = './data/abstract-token-list.json'
     TF_IDF_SAVE_DIR = './data/tf-idf.csv'
-    FV_TOKENS_OPEN_DIR = './data/fv-tokens.json'
+    FV_TOKENS_OPEN_DIR = './data/fv-tokens/final-fv-tokens-data-23-150-feature.json'
     JOURNAL_DATA_OPEN_DIR = './static/journal_info/journal-info.json'
 
     abstract_token_list = preprocess(abstract)
