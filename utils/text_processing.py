@@ -1,7 +1,6 @@
 import csv
 import json
 import math
-import nltk
 import string
 import numpy as np
 from collections import OrderedDict 
@@ -33,7 +32,7 @@ def preprocess(abstract):
     abstract_sw_removed_list = [word for word in abstract_punctuation_removed_list if word not in stop_words]
     abstract_sw_removed = " ".join(abstract_sw_removed_list)    
     abstract_stemmed = stemmer.stem(abstract_sw_removed)
-    abstract_tokens = nltk.word_tokenize(abstract_stemmed)
+    abstract_tokens = abstract_stemmed.split()
 
     tokens_digits_removed = []
 
