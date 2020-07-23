@@ -24,6 +24,18 @@ def home():
 
   if form.validate_on_submit():
     abstract = form.abstract.data
+    num_abstract_words = len(abstract.split())
+
+    if num_abstract_words < 100:
+        word_count_validation_message = 'Abstrak Anda harus lebih dari 100 kata'
+        return render_template("home.html", title='Journal Recommender System', 
+            form=form, word_count_validation_message=word_count_validation_message)
+
+    if num_abstract_words > 350:
+        word_count_validation_message = 'Abstrak Anda tidak boleh lebih dari 350 kata'
+        return render_template("home.html", title='Journal Recommender System', 
+            form=form, word_count_validation_message=word_count_validation_message)
+
     prediction, probabilities = text_processing.predict(abstract, model)
     journal_cover_name = prediction['JOURNAL_COVER']
     journal_cover_path = os.path.join(app.config['STATIC_PIC_DIR'], journal_cover_name)

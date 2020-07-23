@@ -2,9 +2,31 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
+    <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
     <div class="container">
         <h3>Sistem Rekomendasi Jurnal</h2>
         <hr>
+        {% if word_count_validation_message is defined %}
+            <div id="word-count-validation-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Error</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ word_count_validation_message }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function(){
+                    $("#word-count-validation-modal").modal('show');
+                });
+            </script>
+        {% endif %}
         <form action="{{ url_for('home') }}" method="POST" class="form" role="form">
             {{ form.csrf_token() }}
             <div class="row">
@@ -14,64 +36,64 @@
                     <button type="submit" class="btn btn-primary">Cari Jurnal</button>
                 </div>
             </div>
+        </form>
+        {% if prediction is defined %}
             <hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.1);">
             <div class="row">
-              {% if prediction is defined %}
-                    <div class="col-md-6">
-                        <div class="row">
-                            <center>
-                                <h3>Jurnal Yang Direkomendasikan</h3> 
-                            </center>
+                <div class="col-md-6">
+                    <div class="row">
+                        <center>
+                            <h3>Jurnal Yang Direkomendasikan</h3> 
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <h4>
+                                <u>{{ prediction['JOURNAL_NAME'] }}</u> 
+                                <a href="{{ prediction['JOURNAL_URL'] }}"><i class="glyphicon glyphicon-link"></i></a>
+                            </h4>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span style="white-space: pre-line">{{ prediction['JOURNAL_DESC'] }}</span>
                         </div>
-                        <div class="row">
-                            <center>
-                                <h4>
-                                    <u>{{ prediction['JOURNAL_NAME'] }}</u> 
-                                    <a href="{{ prediction['JOURNAL_URL'] }}"><i class="glyphicon glyphicon-link"></i></a>
-                                </h4>
-                            </center>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span style="white-space: pre-line">{{ prediction['JOURNAL_DESC'] }}</span>
-                            </div>
-                            <div class="col-md-4">
-                                <img class="img-responsive" src="{{ prediction['JOURNAL_COVER'] }}">
-                            </div>
+                        <div class="col-md-4">
+                            <img class="img-responsive" src="{{ prediction['JOURNAL_COVER'] }}">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <center>
-                                    <h3>Tabel Probabilitas Setiap Jurnal Yang Dapat Direkomendasikan</h3>
-                                </center>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">Nama Jurnal</th>
-                                        <th scope="col">Probabilitas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        {% for data in probabilities %}
-                                            <tr>
-                                                <td>{{ data['JOURNAL_ID'] }}</td>
-                                                <td>{{ data['JOURNAL_NAME'] }}</td>
-                                                <td>{{ data['JOURNAL_PROBABILITY'] }}%</td>
-                                            </tr>
-                                        {% endfor %}
-                                </tbody>
-                            </table> 
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center>
+                                <h3>Tabel Probabilitas Setiap Jurnal Yang Dapat Direkomendasikan</h3>
+                            </center>
                         </div>
                     </div>
-                {% endif %}
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Nama Jurnal</th>
+                                    <th scope="col">Probabilitas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% for data in probabilities %}
+                                        <tr>
+                                            <td>{{ data['JOURNAL_ID'] }}</td>
+                                            <td>{{ data['JOURNAL_NAME'] }}</td>
+                                            <td>{{ data['JOURNAL_PROBABILITY'] }}%</td>
+                                        </tr>
+                                    {% endfor %}
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
             </div>
-        </form>
+        {% endif %}
     </div>
 {% endblock %}
