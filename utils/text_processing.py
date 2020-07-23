@@ -84,7 +84,7 @@ def predict(abstract, model):
 
     abstract_token_list = preprocess(abstract)
 
-    with open(ABSTRACT_TOKEN_SAVE_DIR, 'w') as f:
+    with open(ABSTRACT_TOKEN_SAVE_DIR, 'w+') as f:
         json.dump(abstract_token_list , f, indent=4)
 
     with open(FV_TOKENS_OPEN_DIR) as f:
@@ -99,7 +99,7 @@ def predict(abstract, model):
     for tfidf in tfidfs.values():
       tf_idf_list.append(tfidf) 
 
-    with open(TF_IDF_SAVE_DIR, 'w') as myfile:
+    with open(TF_IDF_SAVE_DIR, 'w+') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
         wr.writerow(tf_idf_list)
 
