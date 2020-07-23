@@ -2,6 +2,7 @@ import os
 import pickle
 import sklearn
 import numpy as np
+from operator import itemgetter
 from SubmitForm import SubmitForm
 from utils import text_processing
 from flask import Flask, jsonify, render_template
@@ -40,9 +41,11 @@ def home():
     journal_cover_name = prediction['JOURNAL_COVER']
     journal_cover_path = os.path.join(app.config['STATIC_PIC_DIR'], journal_cover_name)
     prediction['JOURNAL_COVER'] = journal_cover_path
+
+    probabilities_sorted_desc = sorted(probabilities, key=itemgetter('JOURNAL_PROBABILITY'), reverse=True)
     
     return render_template("home.html", title='Journal Recommender System', 
-        form=form, prediction=prediction, probabilities=probabilities)
+        form=form, prediction=prediction, probabilities=probabilities_sorted_desc)
 
   return render_template("home.html", title='Journal Recommender System', form=form)
 
