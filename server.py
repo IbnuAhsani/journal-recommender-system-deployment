@@ -12,7 +12,7 @@ STATIC_PIC_DIR = os.path.join('static', 'journal_cover')
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '123456789'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', None)
 app.config['STATIC_PIC_DIR'] = STATIC_PIC_DIR
 
 Bootstrap(app)
