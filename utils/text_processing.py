@@ -1,6 +1,7 @@
 import csv
 import json
 import math
+import os
 import string
 import numpy as np
 from collections import OrderedDict 
@@ -77,10 +78,10 @@ def calculate_tf_idf(tf):
 
 def predict(abstract, model):
 
-    ABSTRACT_TOKEN_SAVE_DIR = './data/output/abstract-token-list.json'
-    TF_IDF_SAVE_DIR = './data/output/tf-idf.csv'
-    FV_TOKENS_OPEN_DIR = './data/fv-tokens/final-fv-tokens-data-23-150-feature.json'
-    JOURNAL_DATA_OPEN_DIR = './static/journal_info/journal-info.json'
+    ABSTRACT_TOKEN_SAVE_DIR = os.environ.get('ABSTRACT_TOKEN_SAVE_DIR', None) 
+    TF_IDF_SAVE_DIR = os.environ.get('TF_IDF_SAVE_DIR', None) 
+    FV_TOKENS_OPEN_DIR = os.environ.get('FV_TOKENS_OPEN_DIR', None) 
+    JOURNAL_DATA_OPEN_DIR = os.environ.get('JOURNAL_DATA_OPEN_DIR', None) 
 
     abstract_token_list = preprocess(abstract)
 
