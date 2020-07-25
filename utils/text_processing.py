@@ -76,7 +76,7 @@ def calculate_tf_idf(tf):
     return tf_idf_dict
 
 
-def predict(abstract, model):
+def predict(abstract, model, model_version):
 
     ABSTRACT_TOKEN_SAVE_DIR = os.environ.get('ABSTRACT_TOKEN_SAVE_DIR', None) 
     TF_IDF_SAVE_DIR = os.environ.get('TF_IDF_SAVE_DIR', None) 
@@ -87,6 +87,11 @@ def predict(abstract, model):
 
     with open(ABSTRACT_TOKEN_SAVE_DIR, 'w+') as f:
         json.dump(abstract_token_list , f, indent=4)
+
+    if model_version == 'final':
+        FV_TOKENS_OPEN_DIR += '/final-fv-tokens-data-23-150-feature.json'
+    else:
+        FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-50-feature.json'
 
     with open(FV_TOKENS_OPEN_DIR) as f:
         fv_token_list = json.load(f)
@@ -111,6 +116,11 @@ def predict(abstract, model):
 
     predict = model.predict(tf_idf_list_np)
     print("predict: ", predict)
+
+    if model_version == 'final':
+        JOURNAL_DATA_OPEN_DIR += '/final-journal-info.json'
+    else:
+        JOURNAL_DATA_OPEN_DIR += '/similar-journal-info.json'
 
     with open(JOURNAL_DATA_OPEN_DIR) as f:
         journal_datas = json.load(f)

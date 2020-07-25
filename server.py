@@ -17,10 +17,17 @@ app.config['STATIC_PIC_DIR'] = STATIC_PIC_DIR
 
 Bootstrap(app)
 
-model = pickle.load(open('./classifiers/final_model_data_23_150_feature.pkl', 'rb'))
+# model versions = ['final', 'similar']
+model_version = 'final'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+
+    if model_version == 'final':
+        model = pickle.load(open('./classifiers/final_model_data_23_150_feature.pkl', 'rb'))
+    else:
+        model = pickle.load(open('./classifiers/model_3_journals_50_feature.pkl', 'rb'))
+
     form = SubmitForm()
 
     if form.validate_on_submit():
@@ -39,7 +46,7 @@ def home():
             return render_template("home.html", title='Journal Recommender System', 
                 form=form, word_count_validation_message=word_count_validation_message)
 
-        prediction, probabilities = text_processing.predict(abstract, model)
+        prediction, probabilities = text_processing.predict(abstract, model, model_version)
         journal_cover_name = prediction['JOURNAL_COVER']
         journal_cover_path = os.path.join(app.config['STATIC_PIC_DIR'], journal_cover_name)
         prediction['JOURNAL_COVER'] = journal_cover_path
