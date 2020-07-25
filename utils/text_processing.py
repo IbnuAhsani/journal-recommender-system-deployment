@@ -38,8 +38,8 @@ def preprocess(abstract):
     tokens_digits_removed = []
 
     for token in abstract_tokens:
-      token_digits_removed = ''.join([i for i in token if not i.isdigit()])
-      tokens_digits_removed.append(token_digits_removed)
+        token_digits_removed = ''.join([i for i in token if not i.isdigit()])
+        tokens_digits_removed.append(token_digits_removed)
     
     final_token = []
 
@@ -98,7 +98,7 @@ def predict(abstract, model):
     tf_idf_list = []
 
     for tfidf in tfidfs.values():
-      tf_idf_list.append(tfidf) 
+        tf_idf_list.append(tfidf) 
 
     with open(TF_IDF_SAVE_DIR, 'w+') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
@@ -113,7 +113,7 @@ def predict(abstract, model):
     print("predict: ", predict)
 
     with open(JOURNAL_DATA_OPEN_DIR) as f:
-      journal_datas = json.load(f)
+        journal_datas = json.load(f)
 
     journal_data = journal_datas[str(predict[0])]
     probabilities_data = []
