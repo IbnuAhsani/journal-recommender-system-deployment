@@ -90,8 +90,11 @@ def predict(abstract, model, model_version):
 
     if model_version == 'final':
         FV_TOKENS_OPEN_DIR += '/final-fv-tokens-data-23-150-feature.json'
-    else:
+    elif model_version == 'similar':
         FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-50-feature.json'
+    else:
+        FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-mixed.json'
+
 
     with open(FV_TOKENS_OPEN_DIR) as f:
         fv_token_list = json.load(f)
@@ -119,8 +122,10 @@ def predict(abstract, model, model_version):
 
     if model_version == 'final':
         JOURNAL_DATA_OPEN_DIR += '/final-journal-info.json'
-    else:
+    elif model_version == 'similar':
         JOURNAL_DATA_OPEN_DIR += '/similar-journal-info.json'
+    else:
+        JOURNAL_DATA_OPEN_DIR += '/mixed-journal-info.json'
 
     with open(JOURNAL_DATA_OPEN_DIR) as f:
         journal_datas = json.load(f)

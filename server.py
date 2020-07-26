@@ -17,7 +17,7 @@ app.config['STATIC_PIC_DIR'] = STATIC_PIC_DIR
 
 Bootstrap(app)
 
-# model versions = ['final', 'similar']
+# model versions = ['final', 'similar', 'mixed']
 model_version = 'final'
 
 @app.route("/", methods=['GET', 'POST'])
@@ -25,8 +25,11 @@ def home():
 
     if model_version == 'final':
         model = pickle.load(open('./classifiers/final_model_data_23_150_feature.pkl', 'rb'))
-    else:
+    elif model_version == 'similar':
         model = pickle.load(open('./classifiers/model_3_journals_50_feature.pkl', 'rb'))
+    else:
+        model = pickle.load(open('./classifiers/model_3_journals_mixed.pkl', 'rb'))
+
 
     form = SubmitForm()
 
