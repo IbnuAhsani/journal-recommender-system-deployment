@@ -89,9 +89,9 @@ def predict(abstract, model, model_version):
         json.dump(abstract_token_list , f, indent=4)
 
     if model_version == 'final':
-        FV_TOKENS_OPEN_DIR += '/final-fv-tokens-data-23-150-feature.json'
+        FV_TOKENS_OPEN_DIR += '/final-fv-tokens-data-23.json'
     elif model_version == 'similar':
-        FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-50-feature.json'
+        FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-similar.json'
     else:
         FV_TOKENS_OPEN_DIR += '/fv-tokens-3-journals-mixed.json'
 

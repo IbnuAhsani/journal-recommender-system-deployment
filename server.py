@@ -24,9 +24,9 @@ model_version = 'final'
 def home():
 
     if model_version == 'final':
-        model = pickle.load(open('./classifiers/final_model_data_23_150_feature.pkl', 'rb'))
+        model = pickle.load(open('./classifiers/final_model_data_23.pkl', 'rb'))
     elif model_version == 'similar':
-        model = pickle.load(open('./classifiers/model_3_journals_50_feature.pkl', 'rb'))
+        model = pickle.load(open('./classifiers/model_3_journals_similar.pkl', 'rb'))
     else:
         model = pickle.load(open('./classifiers/model_3_journals_mixed.pkl', 'rb'))
 
