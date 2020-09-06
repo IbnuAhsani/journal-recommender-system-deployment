@@ -25,7 +25,6 @@ A recommender system that recommends Indonesian scientific journals based on the
 | 10. | [Berita Kedokteran Masyarakat](https://jurnal.ugm.ac.id/bkm) | Public Health |
 | 12. | [Indonesia Medicus Veterinus](https://ojs.unud.ac.id/index.php/imv/index) | Veterinary |
 | 13. | [Matriks Teknik Sipil](https://jurnal.uns.ac.id/matriks) | Civil Engineering | 
-<br/>
 
 ## How to Configure in Local Environment
 
